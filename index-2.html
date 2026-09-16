@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ptushka Dekor — цветы и декор в Хойниках</title>
+<meta name="description" content="Ptushka Dekor — букеты, композиции и свадебный декор в Хойниках. Заказ и доставка.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%237D2E3A'/%3E%3Cpath d='M50 25c6 8 6 16 0 22-6-6-6-14 0-22Z' fill='%23fff'/%3E%3Cpath d='M50 47c8-4 15-1 19 6-8 4-15 1-19-6Z' fill='%23fff'/%3E%3Cpath d='M50 47c-8-4-15-1-19 6 8 4 15 1 19-6Z' fill='%23fff'/%3E%3Cpath d='M50 47c4 8 3 15-2 21-6-6-5-14 2-21Z' fill='%23fff'/%3E%3Ccircle cx='50' cy='47' r='4' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,460;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#FFFFFF;
+    --ink:#241B1A;
+    --wine:#8A3040;
+    --wine-deep:#6B2430;
+    --sage:#5C6B4E;
+    --blush:#F7ECE9;
+    --pink-soft:#EFC7CB;
+    --gold:#BF9A5C;
+    --line:rgba(36,27,26,0.14);
+    --serif:'Fraunces', serif;
+    --sans:'Manrope', sans-serif;
+    --display:'Montserrat', sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--white);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-weight:500;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    position:relative;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--wine);color:var(--white);}
+
+  /* ---------- fixed watercolor canvas (never disappears, any device) ---------- */
+  .bg-canvas{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    background:
+      radial-gradient(ellipse 55% 42% at 12% 10%, rgba(216,140,155,0.38), transparent 62%),
+      radial-gradient(ellipse 50% 40% at 88% 6%, rgba(239,199,203,0.55), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 90% 46%, rgba(214,150,163,0.30), transparent 65%),
+      radial-gradient(ellipse 65% 55% at 6% 62%, rgba(239,199,203,0.5), transparent 62%),
+      radial-gradient(ellipse 70% 60% at 50% 96%, rgba(199,120,138,0.30), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 60% 30%, rgba(255,255,255,0.9), transparent 55%),
+      linear-gradient(180deg, #FFFFFF 0%, #FDF5F5 35%, #FBECEC 70%, #F7E4E3 100%);
+  }
+  .bg-grain{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    opacity:0.05;
+    mix-blend-mode:multiply;
+    pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* decorative floating botanicals (continuous animation, ignore pointer) */
+  .deco{
+    position:absolute;
+    pointer-events:none;
+    z-index:0;
+    color:var(--wine);
+  }
+  .deco svg{width:100%;height:100%;display:block;}
+
+  .deco-rose{
+    width:min(58vw, 460px);
+    height:min(58vw, 460px);
+    opacity:0.13;
+    animation:spin 110s linear infinite;
+    transform-origin:50% 50%;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  .deco-petal{
+    width:34px;height:34px;
+    opacity:0.35;
+    animation:float 7s ease-in-out infinite;
+  }
+  .deco-petal.d2{ animation-duration:8.5s; animation-delay:.6s; }
+  .deco-petal.d3{ animation-duration:6.2s; animation-delay:1.3s; }
+  .deco-petal.d4{ animation-duration:9s; animation-delay:.2s; }
+  @keyframes float{
+    0%,100%{ transform:translateY(0) rotate(0deg); }
+    50%{ transform:translateY(-16px) rotate(10deg); }
+  }
+
+  /* hand-drawn doodle flowers, scattered + continuously animated */
+  .doodle{
+    position:absolute;
+    pointer-events:none;
+    z-index:0;
+    opacity:0.55;
+    color:var(--wine);
+  }
+  .doodle svg{width:100%;height:100%;display:block;}
+  .doodle-sway{ animation:doodleSway 6s ease-in-out infinite; transform-origin:50% 100%; }
+  .doodle-sway.s2{ animation-duration:7.4s; animation-delay:.4s; color:var(--sage); }
+  .doodle-sway.s3{ animation-duration:5.6s; animation-delay:1s; color:var(--gold); }
+  .doodle-sway.s4{ animation-duration:8s; animation-delay:.2s; }
+  .doodle-spin-slow{ animation:doodleSpin 26s ease-in-out infinite; transform-origin:50% 50%; }
+  @keyframes doodleSway{
+    0%,100%{ transform:rotate(-6deg) translateY(0); }
+    50%{ transform:rotate(6deg) translateY(-6px); }
+  }
+  @keyframes doodleSpin{
+    0%,100%{ transform:rotate(-4deg); }
+    50%{ transform:rotate(4deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1;transform:none;transition:none;}
+    .intro-name, .intro-sub{animation:none !important;opacity:1 !important;transform:none !important;}
+    .pulse-wrap{animation:none !important;opacity:1 !important;}
+    .pulse-track{animation:none !important;}
+    .deco-rose, .deco-petal, .ribbon-inner, .doodle-sway, .doodle-spin-slow{animation:none !important;}
+  }
+
+  /* ---------- reveal-on-scroll ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(22px);
+    transition:opacity .9s cubic-bezier(.22,.61,.36,1), transform .9s cubic-bezier(.22,.61,.36,1);
+  }
+  .reveal.is-visible{opacity:1;transform:translateY(0);}
+  .reveal-delay-1{transition-delay:.08s;}
+  .reveal-delay-2{transition-delay:.16s;}
+  .reveal-delay-3{transition-delay:.24s;}
+
+  /* ---------- intro screen (matches original logo card) ---------- */
+  .intro{
+    height:100svh;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:6vh 2rem calc(6vh + 18vh);
+    position:relative;
+    overflow:hidden;
+  }
+  .intro-name{
+    font-family:var(--display);
+    font-weight:300;
+    font-size:clamp(2.7rem, 11vw, 5.6rem);
+    letter-spacing:0.06em;
+    line-height:1.05;
+    margin:0;
+    color:var(--ink);
+    text-transform:uppercase;
+    opacity:0;
+    transform:translateY(14px);
+    animation:nameIn 1.1s cubic-bezier(.22,.61,.36,1) forwards .3s;
+    position:relative;
+    z-index:1;
+  }
+  .intro-sub{
+    margin-top:0.5rem;
+    font-family:var(--display);
+    font-weight:600;
+    font-size:0.95rem;
+    letter-spacing:0.42em;
+    color:rgba(36,27,26,0.5);
+    text-transform:uppercase;
+    padding-left:0.42em;
+    opacity:0;
+    animation:subIn 1s ease forwards .75s;
+    position:relative;
+    z-index:1;
+  }
+  .intro-tag{
+    margin-top:1.3rem;
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(0.95rem, 2.4vw, 1.15rem);
+    color:var(--wine);
+    opacity:0;
+    animation:subIn 1s ease forwards 1.05s;
+    position:relative;
+    z-index:1;
+  }
+  /* ---------- heartbeat pulse with fixed flower ---------- */
+  .pulse-wrap{
+    position:absolute;
+    bottom:6vh;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(84vw, 460px);
+    height:64px;
+    opacity:0;
+    animation:cueIn 1s ease forwards 1.4s;
+    z-index:1;
+  }
+  .pulse-strip{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+  }
+  .pulse-track{
+    display:flex;
+    width:200%;
+    height:100%;
+    animation:pulseFlow 2.6s linear infinite;
+    will-change:transform;
+  }
+  .pulse-track svg{
+    width:50%;
+    height:100%;
+    flex-shrink:0;
+    display:block;
+    stroke:var(--wine);
+    fill:none;
+    stroke-width:2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    opacity:0.85;
+  }
+  .pulse-track svg path{ vector-effect:non-scaling-stroke; }
+  @keyframes pulseFlow{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+  .pulse-flower-bg{
+    position:absolute;
+    top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    width:76px;height:76px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.75) 55%, rgba(255,255,255,0) 78%);
+    z-index:1;
+    pointer-events:none;
+  }
+  .pulse-flower{
+    position:absolute;
+    top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    width:50px;height:50px;
+    z-index:2;
+    color:var(--wine);
+    pointer-events:none;
+  }
+  .pulse-flower svg{width:100%;height:100%;display:block;}
+
+  @keyframes nameIn{to{opacity:1;transform:translateY(0);}}
+  @keyframes subIn{to{opacity:1;}}
+  @keyframes cueIn{to{opacity:1;}}
+
+
+  /* ---------- section rhythm ---------- */
+  section{
+    padding:4rem 1.6rem;
+    position:relative;
+  }
+  .wrap{max-width:640px;margin:0 auto;position:relative;z-index:1;}
+  .wrap-wide{max-width:920px;margin:0 auto;position:relative;z-index:1;}
+
+  .eyebrow-mark{
+    display:inline-flex;
+    width:24px;height:24px;
+    color:var(--wine);
+    margin-bottom:0.9rem;
+  }
+  .eyebrow-mark svg{width:100%;height:100%;}
+
+  h2{
+    font-family:var(--serif);
+    font-weight:650;
+    font-size:clamp(2rem, 5.6vw, 2.9rem);
+    line-height:1.12;
+    margin:0 0 0.8rem;
+    letter-spacing:0.002em;
+  }
+  h2 em{
+    font-style:italic;
+    font-weight:500;
+    color:var(--wine);
+  }
+  p{
+    font-size:1.04rem;
+    line-height:1.62;
+    color:rgba(36,27,26,0.8);
+    margin:0 0 0.6rem;
+    max-width:56ch;
+    font-weight:500;
+  }
+
+  /* ---------- ribbon divider (unrolls once, then sways forever) ---------- */
+  .ribbon-wrap{
+    max-width:340px;
+    margin:0 auto;
+    padding:0 1.6rem;
+  }
+  .ribbon-wrap.reveal{ transform-origin:left center; }
+  .ribbon-wrap.reveal{ transform:translateY(0) scaleX(0.15); opacity:0; }
+  .ribbon-wrap.reveal.is-visible{ transform:translateY(0) scaleX(1); opacity:1; transition:transform 1.15s cubic-bezier(.22,.61,.36,1), opacity .8s ease; }
+  .ribbon-inner{
+    animation:sway 4.2s ease-in-out infinite alternate;
+    transform-origin:50% 50%;
+  }
+  @keyframes sway{
+    from{ transform:rotate(-1.2deg) translateY(0); }
+    to{ transform:rotate(1.2deg) translateY(-2px); }
+  }
+
+  .rule{
+    width:100%;
+    height:1px;
+    background:var(--line);
+    border:0;
+    margin:0;
+  }
+
+  /* ---------- about ---------- */
+  .about{background:transparent;}
+  .about p:last-of-type{margin-bottom:0;}
+
+  /* ---------- services ---------- */
+  .services{background:transparent;}
+  .services::before{
+    content:'';
+    position:absolute;inset:0;
+    background:rgba(255,255,255,0.35);
+    z-index:0;
+  }
+  .services-list{
+    display:flex;
+    flex-direction:column;
+  }
+  .service-row{
+    display:grid;
+    grid-template-columns:56px 1fr;
+    gap:1.1rem;
+    align-items:start;
+    padding:1.3rem 0;
+    border-top:1px solid var(--line);
+  }
+  .service-row:last-child{border-bottom:1px solid var(--line);}
+  .service-icon{
+    width:38px;height:38px;
+    color:var(--wine);
+  }
+  .service-icon svg{width:100%;height:100%;}
+  .service-row h3{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:1.32rem;
+    margin:0 0 .4rem;
+  }
+  .service-row p{margin:0;font-size:0.98rem;}
+
+  /* ---------- gallery ---------- */
+  .gallery{background:transparent;}
+  .gallery-grid{
+    margin-top:1.6rem;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:1.1rem;
+  }
+  .gallery-item{
+    margin:0;
+    overflow:hidden;
+    border-radius:6px;
+    position:relative;
+  }
+  .gallery-item img{
+    width:100%;
+    height:340px;
+    object-fit:cover;
+    display:block;
+    transition:transform .7s cubic-bezier(.22,.61,.36,1);
+  }
+  .gallery-item:hover img{ transform:scale(1.05); }
+  .gallery-item figcaption{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:500;
+    font-size:0.95rem;
+    color:var(--ink);
+    padding:0.7rem 0.1rem 0;
+  }
+  @media (min-width:720px){
+    .gallery-grid{ grid-template-columns:repeat(3, 1fr); gap:1.4rem; }
+    .gallery-item img{ height:300px; }
+  }
+
+  /* ---------- reviews ---------- */
+  .reviews{background:transparent;}
+  .review-list{
+    display:flex;
+    flex-direction:column;
+    gap:1.7rem;
+  }
+  .review{
+    position:relative;
+    padding-left:1.5rem;
+    border-left:2px solid var(--wine);
+  }
+  .review-quote{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(1.05rem, 3vw, 1.24rem);
+    line-height:1.55;
+    color:var(--ink);
+    margin:0 0 .9rem;
+  }
+  .review-meta{
+    font-size:0.82rem;
+    letter-spacing:0.06em;
+    color:var(--sage);
+    font-weight:700;
+  }
+
+  /* ---------- contact ---------- */
+  .contact{
+    background:linear-gradient(155deg, var(--wine-deep), #4E1B24 130%);
+    color:var(--white);
+  }
+  .contact h2{color:var(--white);font-weight:650;}
+  .contact p{color:rgba(255,255,255,0.75);}
+  .contact .eyebrow-mark{color:var(--gold);}
+
+  .contact-grid{
+    display:flex;
+    flex-direction:column;
+    gap:0.8rem;
+    margin-top:1.4rem;
+  }
+  .contact-btn{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+    padding:1.15rem 1.3rem;
+    border:1px solid rgba(255,255,255,0.24);
+    border-radius:4px;
+    transition:background .35s ease, border-color .35s ease, transform .35s ease;
+    cursor:pointer;
+  }
+  .contact-btn:hover, .contact-btn:focus-visible{
+    background:rgba(255,255,255,0.1);
+    border-color:rgba(255,255,255,0.55);
+    transform:translateX(3px);
+  }
+  .contact-btn-text{display:flex;flex-direction:column;gap:0.15rem;}
+  .contact-btn-label{
+    font-size:0.72rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:700;
+  }
+  .contact-btn-value{
+    font-family:var(--serif);
+    font-size:1.18rem;
+    font-weight:600;
+  }
+  .contact-btn-icon{
+    width:22px;height:22px;
+    flex-shrink:0;
+    color:var(--white);
+  }
+  .contact-btn-icon svg{width:100%;height:100%;}
+
+  /* hours */
+  .hours{background:transparent;}
+  .hours::before{
+    content:'';
+    position:absolute;inset:0;
+    background:rgba(255,255,255,0.3);
+    z-index:0;
+  }
+  .hours-table{
+    margin-top:1.1rem;
+    display:flex;
+    flex-direction:column;
+  }
+  .hours-row{
+    display:flex;
+    justify-content:space-between;
+    gap:1rem;
+    padding:0.7rem 0;
+    border-top:1px solid var(--line);
+    font-size:0.98rem;
+  }
+  .hours-row:last-child{border-bottom:1px solid var(--line);}
+  .hours-day{font-weight:700;}
+  .hours-time{color:rgba(36,27,26,0.72);text-align:right;font-weight:500;}
+
+  /* instagram + footer */
+  .follow{
+    background:transparent;
+    text-align:center;
+    padding:3.2rem 1.6rem 2.2rem;
+  }
+  .insta-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:0.6rem;
+    padding:0.95rem 1.7rem;
+    border:1px solid var(--ink);
+    border-radius:999px;
+    font-size:0.94rem;
+    font-weight:700;
+    letter-spacing:0.02em;
+    transition:background .3s ease, color .3s ease, border-color .3s ease;
+    position:relative;
+    z-index:1;
+  }
+  .insta-btn:hover, .insta-btn:focus-visible{
+    background:var(--ink);
+    color:var(--white);
+  }
+  .insta-btn svg{width:19px;height:19px;}
+
+  footer{
+    text-align:center;
+    padding:2.6rem 1.6rem 3.2rem;
+    font-size:0.78rem;
+    letter-spacing:0.06em;
+    color:rgba(36,27,26,0.45);
+    font-weight:600;
+    position:relative;
+    z-index:1;
+  }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--wine);
+    outline-offset:3px;
+  }
+
+  /* ---------- desktop adaptation ---------- */
+  @media (min-width:640px){
+    section{padding:5rem 2.5rem;}
+    .contact-grid{gap:1rem;}
+  }
+  @media (min-width:1000px){
+    .bg-canvas{
+      background:
+        radial-gradient(ellipse 40% 55% at 8% 8%, rgba(216,140,155,0.36), transparent 60%),
+        radial-gradient(ellipse 32% 50% at 92% 4%, rgba(239,199,203,0.55), transparent 58%),
+        radial-gradient(ellipse 38% 55% at 94% 55%, rgba(214,150,163,0.28), transparent 62%),
+        radial-gradient(ellipse 42% 60% at 4% 60%, rgba(239,199,203,0.5), transparent 60%),
+        radial-gradient(ellipse 45% 55% at 50% 100%, rgba(199,120,138,0.26), transparent 58%),
+        radial-gradient(ellipse 40% 50% at 55% 32%, rgba(255,255,255,0.9), transparent 55%),
+        linear-gradient(180deg, #FFFFFF 0%, #FDF5F5 35%, #FBECEC 70%, #F7E4E3 100%);
+    }
+    .wrap, .wrap-wide{ max-width:760px; }
+    .wrap-wide{ max-width:960px; }
+    h2{ font-size:clamp(2.4rem, 3.4vw, 3.1rem); }
+    .deco-rose{ width:420px; height:420px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-canvas"></div>
+<div class="bg-grain"></div>
+
+<!-- ================= INTRO ================= -->
+<div class="intro">
+  <div class="doodle doodle-sway" style="width:54px;height:63px;bottom:12%;left:8%;" aria-hidden="true">
+    <svg viewBox="0 0 60 70" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M29 27c-3-6 0-12 5-15-0 7-2 12-5 15Z"/>
+      <path d="M29 27c6-3 12 0 15 5-7 1-12-1-15-5Z"/>
+      <path d="M29 27c3 6 1 12-4 16-2-7 0-12 4-16Z"/>
+      <path d="M29 27c-6 2-12-1-14-6 7-1 12 1 14 6Z"/>
+      <circle cx="29" cy="27" r="2.6"/>
+      <path d="M29 30c1 9-1 16-4 21" stroke-width="1.4"/>
+      <path d="M27 41c-3 1-5 3-6 6" stroke-width="1.2"/>
+    </svg>
+  </div>
+  <div class="deco deco-rose" style="top:-8%;right:-12%;" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.1">
+      <path d="M100 40c-30 8-46 30-46 60s16 52 46 60c30-8 46-30 46-60S130 48 100 40Z"/>
+      <path d="M100 55c-20 7-31 22-31 45s11 38 31 45c20-7 31-22 31-45s-11-38-31-45Z"/>
+      <path d="M100 70c-11 5-17 15-17 30s6 25 17 30c11-5 17-15 17-30s-6-25-17-30Z"/>
+      <circle cx="100" cy="100" r="8"/>
+      <path d="M100 40c14-16 34-20 50-10M100 40c-14-16-34-20-50-10M100 160c14 16 34 20 50 10M100 160c-14 16-34 20-50 10"/>
+    </svg>
+  </div>
+  <h1 class="intro-name">Ptushka Dekor</h1>
+  <div class="intro-sub">Букетная</div>
+  <div class="intro-tag">цветы · декор · Хойники</div>
+  <div class="pulse-wrap" aria-hidden="true">
+    <div class="pulse-strip">
+      <div class="pulse-track">
+        <svg viewBox="0 0 400 90" preserveAspectRatio="none">
+          <path d="M0,45 L48,45 L60,45 L70,18 L80,72 L90,28 L100,45 L150,45 L165,38 L175,52 L185,45 L400,45"/>
+        </svg>
+        <svg viewBox="0 0 400 90" preserveAspectRatio="none">
+          <path d="M0,45 L48,45 L60,45 L70,18 L80,72 L90,28 L100,45 L150,45 L165,38 L175,52 L185,45 L400,45"/>
+        </svg>
+      </div>
+    </div>
+    <div class="pulse-flower-bg"></div>
+    <div class="pulse-flower">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+        <g>
+          <path d="M50 50C47 34 47 20 50 6C53 20 53 34 50 50Z" transform="rotate(0 50 50)"/>
+          <path d="M50 50C47 34 47 20 50 6C53 20 53 34 50 50Z" transform="rotate(36 50 50)"/>
+          <path d="M50 50C47 34 47 20 50 6C53 20 53 34 50 50Z" transform="rotate(72 50 50)"/>
+          <path d="M50 50C47 34 47 20 50 6C53 20 53 34 50 50Z" transform="rotate(108 50 50)"/>
+          <path d="M50 50C47 34 47 20 50 6C53 20 53 34 50 50Z" transform="rotate(144 50 50)"/>
+          <path d="M50 50C47 34 47 20 50 6C53 20 53 34 50 50Z" transform="rotate(180 50 50)"/>
+          <path d="M50 50C47 34 47 20 50 6C53 20 53 34 50 50Z" transform="rotate(216 50 50)"/>
+          <path d="M50 50C47 34 47 20 50 6C53 20 53 34 50 50Z" transform="rotate(252 50 50)"/>
+          <path d="M50 50C47 34 47 20 50 6C53 20 53 34 50 50Z" transform="rotate(288 50 50)"/>
+          <path d="M50 50C47 34 47 20 50 6C53 20 53 34 50 50Z" transform="rotate(324 50 50)"/>
+        </g>
+        <circle cx="50" cy="50" r="7.5" stroke-width="1.6"/>
+        <circle cx="47" cy="48" r="0.9" fill="currentColor" stroke="none"/>
+        <circle cx="53" cy="47" r="0.9" fill="currentColor" stroke="none"/>
+        <circle cx="50" cy="52" r="0.9" fill="currentColor" stroke="none"/>
+        <circle cx="54" cy="52" r="0.9" fill="currentColor" stroke="none"/>
+        <circle cx="46" cy="53" r="0.9" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ================= ABOUT ================= -->
+<section class="about">
+  <div class="doodle doodle-sway s2" style="width:40px;height:40px;top:6%;right:8%;" aria-hidden="true">
+    <svg viewBox="0 0 50 50" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+      <circle cx="25" cy="13" r="4.2"/>
+      <circle cx="35" cy="20" r="4.2"/>
+      <circle cx="33" cy="31" r="4.2"/>
+      <circle cx="20" cy="33" r="4.2"/>
+      <circle cx="12" cy="22" r="4.2"/>
+      <circle cx="25" cy="23" r="3.4" fill="currentColor" stroke="none" opacity="0.85"/>
+    </svg>
+  </div>
+  <div class="deco deco-petal" style="top:14%;left:6%;" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c4 3 4 9 0 13-4-4-4-10 0-13Z"/></svg>
+  </div>
+  <div class="deco deco-petal d3" style="bottom:10%;right:8%;" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c4 3 4 9 0 13-4-4-4-10 0-13Z"/></svg>
+  </div>
+  <div class="wrap">
+    <span class="eyebrow-mark reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3c3 3.5 3 8 0 11-3-3-3-7.5 0-11Z"/><path d="M12 13c4-1 7 1 8 4-4 1-7-1-8-4Z"/><path d="M12 13c-4-1-7 1-8 4 4 1 7-1 8-4Z"/></svg>
+    </span>
+    <h2 class="reveal reveal-delay-1">Десять лет мы <em>собираем</em> красоту для главных дней Хойников</h2>
+    <p class="reveal reveal-delay-2">Ptushka Dekor — букетная в самом сердце города. Мы составляем букеты от классики до экзотики, оформляем свадьбы и праздники и подбираем декор, который запоминается гостям надолго.</p>
+    <p class="reveal reveal-delay-3">Каждая работа собирается вручную и с расчётом на повод: будь то скромный жест внимания или оформление целого зала.</p>
+  </div>
+</section>
+
+<div class="ribbon-wrap reveal" aria-hidden="true">
+  <div class="ribbon-inner">
+    <svg viewBox="0 0 320 40" width="100%" height="40" fill="none">
+      <defs>
+        <linearGradient id="ribbonGrad" x1="0" y1="0" x2="320" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#8A3040"/>
+          <stop offset="0.5" stop-color="#BF9A5C"/>
+          <stop offset="1" stop-color="#8A3040"/>
+        </linearGradient>
+      </defs>
+      <path d="M0 20c40-14 80 14 120 4s70-18 100-4 60 14 100 0" stroke="url(#ribbonGrad)" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ================= SERVICES ================= -->
+<section class="services">
+  <div class="doodle doodle-sway s3" style="width:32px;height:48px;bottom:8%;left:6%;" aria-hidden="true">
+    <svg viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+      <path d="M20 5c2 14-1 30-6 50"/>
+      <path d="M20 15c6-2 10-6 11-11"/>
+      <path d="M18 28c-6-1-11-5-13-10"/>
+      <path d="M17 40c6-1 10-5 12-10"/>
+    </svg>
+  </div>
+  <div class="wrap">
+    <span class="eyebrow-mark reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 20c4-9 8-13 16-16-3 8-7 12-16 16Z"/><path d="M9 15c2-2 4-2 6 0"/></svg>
+    </span>
+    <h2 class="reveal">Чем занимаемся</h2>
+    <div class="services-list">
+      <div class="service-row reveal">
+        <span class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="8" r="3.2"/><path d="M12 11v9M8 20h8"/><path d="M8.5 6.5C7 5 5 5.3 4 7c1.5 1.3 3.3 1 4.5-.5ZM15.5 6.5C17 5 19 5.3 20 7c-1.5 1.3-3.3 1-4.5-.5Z"/></svg>
+        </span>
+        <div>
+          <h3>Букеты</h3>
+          <p>От сдержанной классики до ярких экзотических сборов — под настроение и повод.</p>
+        </div>
+      </div>
+      <div class="service-row reveal">
+        <span class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 4c3 2.5 3 6.5 0 9-3-2.5-3-6.5 0-9Z"/><path d="M5 20c2-6 4-8 7-9M19 20c-2-6-4-8-7-9"/></svg>
+        </span>
+        <div>
+          <h3>Букет невесты</h3>
+          <p>Свадебный букет, подобранный в цвет и настроение торжества.</p>
+        </div>
+      </div>
+      <div class="service-row reveal">
+        <span class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 18h16M6 18V9l6-4 6 4v9"/><path d="M10 18v-5h4v5"/></svg>
+        </span>
+        <div>
+          <h3>Свадебный и праздничный декор</h3>
+          <p>Оформление залов, арок и столов — так, чтобы гости ахнули на входе.</p>
+        </div>
+      </div>
+      <div class="service-row reveal">
+        <span class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="4" y="4" width="16" height="16" rx="1.2"/><path d="M4 9h16M9 20V9"/></svg>
+        </span>
+        <div>
+          <h3>Доставка по Хойникам</h3>
+          <p>Соберём и доставим точно в срок — можно даже сюрпризом.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section class="gallery">
+  <div class="doodle doodle-sway s3" style="width:30px;height:44px;top:8%;left:8%;" aria-hidden="true">
+    <svg viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+      <path d="M20 5c2 14-1 30-6 50"/>
+      <path d="M20 15c6-2 10-6 11-11"/>
+      <path d="M18 28c-6-1-11-5-13-10"/>
+    </svg>
+  </div>
+  <div class="wrap-wide">
+    <span class="eyebrow-mark reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 7h16v13H4zM4 7l8 6 8-6"/></svg>
+    </span>
+    <h2 class="reveal">Немного наших работ</h2>
+    <div class="gallery-grid">
+      <figure class="gallery-item reveal">
+        <img src="images/svadba.jpg" alt="Букет невесты и бутоньерка жениха на свадебной церемонии" loading="lazy">
+        <figcaption>Свадебная флористика — букет невесты и бутоньерка в тон</figcaption>
+      </figure>
+      <figure class="gallery-item reveal reveal-delay-1">
+        <img src="images/korobka.jpg" alt="Белая цветочная композиция в шляпной коробке Ptushka Dekor" loading="lazy">
+        <figcaption>Композиция в коробке — нежная белая палитра</figcaption>
+      </figure>
+      <figure class="gallery-item reveal reveal-delay-2">
+        <img src="images/buket-magazin.jpg" alt="Букет из роз, гвоздик и эрингиума, собранный в мастерской" loading="lazy">
+        <figcaption>Свежий сбор прямо из мастерской</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REVIEWS ================= -->
+<section class="reviews">
+  <div class="deco deco-petal d2" style="top:8%;right:10%;" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c4 3 4 9 0 13-4-4-4-10 0-13Z"/></svg>
+  </div>
+  <div class="wrap-wide">
+    <span class="eyebrow-mark reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M7 15c-2 0-3-1.5-3-4s1.5-5 4-5c.6 2 .3 4-1 5.5 1 .2 1.7 1 1.7 2C8.7 14.7 7.9 15 7 15Z"/><path d="M17 15c-2 0-3-1.5-3-4s1.5-5 4-5c.6 2 .3 4-1 5.5 1 .2 1.7 1 1.7 2C18.7 14.7 17.9 15 17 15Z"/></svg>
+    </span>
+    <h2 class="reveal">Что говорят клиенты</h2>
+    <div class="review-list" style="margin-top:2.4rem;">
+      <div class="review reveal">
+        <p class="review-quote">«Сижу и любуюсь вашей работой. Лена, вы большая молодец. За 10 лет вы проделали огромный путь и добились успехов. Спасибо за красоту и что стали частичкой нашего праздника».</p>
+        <div class="review-meta">из переписки с клиентом</div>
+      </div>
+      <div class="review reveal">
+        <p class="review-quote">«Большое спасибо за вашу работу. Всем очень понравилось. Красота необыкновенная! Здорово, что у нас в городе есть такие профессионалы как вы».</p>
+        <div class="review-meta">из переписки с клиентом</div>
+      </div>
+      <div class="review reveal">
+        <p class="review-quote">«Елена, здравствуйте! Хотела сказать вам огромное спасибо за украшения. Всё было безумно красиво, гости в восторге. Было приятно работать вместе с вами».</p>
+        <div class="review-meta">из переписки с клиентом</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="eyebrow-mark reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+    </span>
+    <h2 class="reveal">Свяжитесь с нами</h2>
+
+    <div class="contact-grid">
+      <a class="contact-btn reveal" href="tel:+375293874824">
+        <span class="contact-btn-text">
+          <span class="contact-btn-label">Телефон</span>
+          <span class="contact-btn-value">+375 29 387-48-24</span>
+        </span>
+        <span class="contact-btn-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v3a2 2 0 0 1-2 2C10.5 20 4 13.5 4 6a2 2 0 0 1 1-2Z"/></svg>
+        </span>
+      </a>
+
+      <a class="contact-btn reveal" href="https://www.google.com/maps/search/?api=1&query=%D0%A5%D0%BE%D0%B9%D0%BD%D0%B8%D0%BA%D0%B8%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%96%D1%83%D0%BA%D0%BE%D0%B2%D0%B0%202%D0%9B%2C%20%D0%91%D0%B5%D0%BB%D0%B0%D1%80%D1%83%D1%81%D1%8C" target="_blank" rel="noopener">
+        <span class="contact-btn-text">
+          <span class="contact-btn-label">Адрес</span>
+          <span class="contact-btn-value">г. Хойники, ул. Жукова, 2Л</span>
+        </span>
+        <span class="contact-btn-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+        </span>
+      </a>
+
+      <a class="contact-btn reveal" href="mailto:ms.elenka.1989@mail.ru">
+        <span class="contact-btn-text">
+          <span class="contact-btn-label">Почта</span>
+          <span class="contact-btn-value">ms.elenka.1989@mail.ru</span>
+        </span>
+        <span class="contact-btn-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3.5" y="5.5" width="17" height="13" rx="1.5"/><path d="M4 6.5l8 6 8-6"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOURS ================= -->
+<section class="hours">
+  <div class="doodle doodle-sway" style="width:44px;height:52px;top:10%;right:8%;" aria-hidden="true">
+    <svg viewBox="0 0 60 70" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M29 27c-3-6 0-12 5-15-0 7-2 12-5 15Z"/>
+      <path d="M29 27c6-3 12 0 15 5-7 1-12-1-15-5Z"/>
+      <path d="M29 27c3 6 1 12-4 16-2-7 0-12 4-16Z"/>
+      <path d="M29 27c-6 2-12-1-14-6 7-1 12 1 14 6Z"/>
+      <circle cx="29" cy="27" r="2.6"/>
+      <path d="M29 30c1 9-1 16-4 21" stroke-width="1.4"/>
+    </svg>
+  </div>
+  <div class="wrap">
+    <span class="eyebrow-mark reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.5V12l3 2"/></svg>
+    </span>
+    <h2 class="reveal">Режим работы</h2>
+    <div class="hours-table">
+      <div class="hours-row reveal">
+        <span class="hours-day">Понедельник — пятница</span>
+        <span class="hours-time">9:30–18:00, обед 13:00–14:00</span>
+      </div>
+      <div class="hours-row reveal">
+        <span class="hours-day">Суббота — воскресенье</span>
+        <span class="hours-time">10:00–16:00, без обеда</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INSTAGRAM ================= -->
+<div class="follow">
+  <div class="deco deco-petal d4" style="top:6%;left:16%;" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c4 3 4 9 0 13-4-4-4-10 0-13Z"/></svg>
+  </div>
+  <a class="insta-btn reveal" href="https://www.instagram.com/ptushka_dekor?stkn=ZnM2anBmcWR0MnRp" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4.1"/><circle cx="16.6" cy="7.4" r="1.1" fill="currentColor" stroke="none"/></svg>
+    <span>@ptushka_dekor</span>
+  </a>
+</div>
+
+<footer>Ptushka Dekor · Хойники · собрано с любовью к цветам</footer>
+
+<script>
+  var els = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.15, rootMargin:'0px 0px -40px 0px'});
+    els.forEach(function(el){ io.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('is-visible'); });
+  }
+</script>
+
+</body>
+</html>
